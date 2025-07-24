@@ -6,9 +6,14 @@ interface BalanceDisplayProps {
 }
 
 const BalanceDisplay: FC<BalanceDisplayProps> = ({ balance, onRefresh }) => {
+  // Convert satoshis to DOGE if balance is a valid number
+  let displayBalance = 'N/A';
+  if (balance && !isNaN(Number(balance))) {
+    displayBalance = (Number(balance) / 1e8).toFixed(3);
+  }
   return (
     <div>
-      <p>Balance: {balance ? balance : 'N/A'}</p>
+      <p>Balance: {displayBalance} DOGE</p>
       <button onClick={onRefresh}>Refresh Balance</button>
     </div>
   );
